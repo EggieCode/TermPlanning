@@ -1,33 +1,53 @@
-The MIT License (MIT)
+#ifndef PLANNINGITEMS_H
+#define PLANNINGITEMS_H
 
-Copyright (c) 2014 Egbert Verhage
+#include <cstddef>
+#include "cursesm.h"
+#include "planningcontroller.h"
+#include "planningitem.h"
+class PlanningMenuItem : public NCursesMenuItem {
+public:
+	PlanningItem *item;
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+	PlanningMenuItem(PlanningItem* item) : NCursesMenuItem(item->getTask().c_str()){
+		this->item = item;
+	}
+	bool action() {
 
-	The above copyright notice and this permission notice shall be included in all
-	copies or substantial portions of the Software.
+		return false;
+	}
+};
 
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-	SOFTWARE.
-
-
-	#ifndef PLANNINGITEMS_H
-	#define PLANNINGITEMS_H
-
-	class PlanningItems
+class PlanningItems : public NCursesMenu
 {
-		public:
-		PlanningItems();
+private:
+  NCursesMenuItem** I;
+
+public:
+  PlanningItems(PlanningController*);
+  PlanningItems& operator =(const PlanningItems&);
+  virtual void On_Menu_Init();
+  virtual void On_Menu_Termination();
+  virtual void On_Item_Init(NCursesMenuItem&);
+  virtual void On_Item_Termination(NCursesMenuItem&);
+};
+
+
+class PlanningItemsMenuItem : public NCursesMenuItem {
+private:
+	PlanningController* ctr;
+
+public:
+	PlanningItemsMenuItem(PlanningController* ctl) : NCursesMenuItem("Planning") {
+		this->ctr = ctl;
+	}
+	bool action() {
+		PlanningItems menu2(ctr);
+		menu2();
+
+		return false;
+	}
+
 };
 
 #endif // PLANNINGITEMS_H

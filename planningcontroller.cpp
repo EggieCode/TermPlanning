@@ -33,7 +33,7 @@ PlanningController::PlanningController()
 	items = new std::vector<PlanningItem*>();
 }
 
-void PlanningController::addItem(std::string task, std::time_t **deadlines, int count_deadlines) {
+void PlanningController::addItem(std::string task, std::time_t *deadlines, int count_deadlines) {
 	PlanningItem* item = new PlanningItem(task,deadlines, count_deadlines);
 	items->push_back(item);
 }
@@ -60,7 +60,7 @@ void PlanningController::load(){
 		json_object *item = json_object_array_get_idx(json_planning_items, i);
 		json_object *obj_task ;
 		json_object *obj_deadlines;
-		long *deadlines;
+		int64_t *deadlines;
 		std::string task;
 		int count_deadlines = 0;
 		json_object_object_get_ex(item, "task", &obj_task);
@@ -83,12 +83,13 @@ void PlanningController::load(){
 
 		} else if(deadlines_type == json_type_array) {
 
-			int arraylen = json_object_array_length(json_planning_items);
+			int arraylen = json_object_array_length(obj_deadlines);
 			deadlines = new long[arraylen];
+			count_deadlines = arraylen;
 			for(int x = 0; x < arraylen; x++) {
 
 				json_object *obj_deadline = json_object_array_get_idx(obj_deadlines, x);
-				deadlines[x] = json_object_get_int64(obj_deadline);
+				deadlines[x] = ( json_object_get_int64(obj_deadline));
 			}
 
 		}
@@ -98,7 +99,7 @@ void PlanningController::load(){
 		task = (json_object_get_string(obj_task));
 
 
-		this->addItem(task,&deadlines, count_deadlines);
+		this->addItem(task,deadlines, count_deadlines);
 
 
 	}

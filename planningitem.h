@@ -31,19 +31,19 @@
 class PlanningItem
 {
 public:
-	PlanningItem(std::string task,std::time_t **deadlines, int count_deadlines) { this->task = task; this->deadlines = deadlines; this->count_deadlines = count_deadlines; }
+	PlanningItem(std::string task,std::time_t *deadlines, int count_deadlines) { this->task = task; this->deadlines = deadlines; this->count_deadlines = count_deadlines; }
     //~PlanningItem() { delete task; delete deadline; }
     std::string getTask() { return task; }
-	std::time_t **getDeadlines() { return deadlines; }
+	std::time_t *getDeadlines() { return deadlines; }
 	int getDeadlineCount() { return count_deadlines; }
 
     void setTask(std::string task) { this->task = task; }
-	void addDeadline(std::time_t deadline) { (*this->deadlines[count_deadlines++]) = deadline; }
+	void addDeadline(std::time_t deadline) { (this->deadlines[count_deadlines++]) = deadline; }
 
 
 private:
     std::string task;
-	std::time_t **deadlines;
+	std::time_t *deadlines;
 	int count_deadlines;
 
 };

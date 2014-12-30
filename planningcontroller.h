@@ -35,7 +35,7 @@ public:
     PlanningController();
     void load();
     void addItem(PlanningItem &item);
-	void addItem(std::string task, std::time_t **deadline, int count_deadlines);
+	void addItem(std::string task, std::time_t *deadline, int count_deadlines);
     std::vector<PlanningItem*>* getItems();
 
 private:

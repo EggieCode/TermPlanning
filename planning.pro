@@ -7,10 +7,19 @@ CONFIG -= qt
 QMAKE_CXXFLAGS += -Wall -std=c++11
 
 LIBS += -ljson
+LIBS += -lncurses++
 LIBS += -lncurses
+LIBS += -lpanel
+LIBS += -lmenu
 
-SOURCES += *.cpp
-HEADERS += *.h
+SOURCES += *.cpp \
+    editor/planningeditor.cpp \
+    editor/planningmenu.cpp \
+    editor/planningitems.cpp
+HEADERS += *.h \
+    editor/planningeditor.h \
+    editor/planningmenu.h \
+    editor/planningitems.h
 
 include(deployment.pri)
 
