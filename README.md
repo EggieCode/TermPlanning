@@ -1,17 +1,17 @@
 TermPlanning
 ============
 
-My first program in C++. It is a simple program to create a task list (planning) in the termail.
-And the data is simple stored in a json file.
+This is my first program in C++. It's a simple program to create a task list (planning) in the terminal.
+The data is stored in a JSON file.
 
-Comming futures:
+Upcoming features:
 * Log - See what you have done.
 
 
 .bashrc 
 ============
-TermPlanning is program that you run at start on bash start. Every time you start your termail, you see your planning.
+TermPlanning is intended to be executed when starting your favorite shell. So every time you start your shell, you see your list of tasks.
 
 Editor mode (beta)
 ============
-Editor mode is a mode where you can edit the items, that do you in the termail with ncurses.
+Editor mode is the mode used to edit the tasks. This mode uses an ncurses interface in the terminal.
